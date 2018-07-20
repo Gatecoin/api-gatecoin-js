@@ -7,5 +7,5 @@ RUN npm ci
 
 COPY . .
 
-RUN npm test:prod
+RUN npm run test:prod
 RUN npm run build
