@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="../dist/gatecoin-client.umd.js"></script>
+  <script>
+    var client = new gatecoinClient.Client();
+    client.getTickers()
+      .then(console.log)
+      .catch(console.error);
+  </script>
+</head>
+<body>
+  Check the console.
+</body>
+</html>

@@ -1,0 +1,126 @@
+{
+  "name": "gatecoin-api-v1",
+  "version": "0.0.0",
+  "description": "",
+  "keywords": [],
+  "main": "dist/gatecoin-client.cjs.js",
+  "browser": "dist/gatecoin-client.umd.js",
+  "typings": "dist/types/src/client.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "pavel.yeliseev <jelisejev@users.noreply.github.com>",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
+    "prebuild": "rimraf dist",
+    "build": "tsc --module commonjs --esModuleInterop && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src && npm run build-examples",
+    "build-examples": "tsc --project tsconfig-examples.json",
+    "start": "rollup -c rollup.config.ts -w",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
+    "test:e2e-node": "jest --config jest-e2e.config.json",
+    "test:e2e-web": "karma start karma.config.js",
+    "test:e2e": "npm run test:e2e-node && npm run test:e2e-web",
+    "deploy-docs": "ts-node tools/gh-pages-publish",
+    "report-coverage": "cat ./coverage/lcov.info | coveralls",
+    "commit": "git-cz",
+    "semantic-release": "semantic-release",
+    "semantic-release-prepare": "ts-node tools/semantic-release-prepare"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    },
+    "validate-commit-msg": {
+      "types": "conventional-commit-types",
+      "helpMessage": "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
+    }
+  },
+  "jest": {
+    "roots": [
+      "./test"
+    ],
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    },
+    "collectCoverage": true,
+    "testEnvironment": "node"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "3.1.42",
+    "@types/jest": "^22.0.0",
+    "@types/nock": "9.3.0",
+    "@types/node": "^10.0.3",
+    "@types/node-fetch": "2.1.2",
+    "@types/query-string": "6.1.0",
+    "babel-preset-es2015": "6.24.1",
+    "colors": "^1.1.2",
+    "commitizen": "^2.9.6",
+    "coveralls": "^3.0.0",
+    "cross-env": "^5.0.1",
+    "cz-conventional-changelog": "^2.0.0",
+    "envalid": "4.1.4",
+    "husky": "^0.14.0",
+    "jasmine-core": "3.1.0",
+    "jest": "^22.0.2",
+    "karma": "2.0.4",
+    "karma-chrome-launcher": "2.2.0",
+    "karma-env-preprocessor": "0.1.1",
+    "karma-jasmine": "1.1.2",
+    "karma-typescript": "3.0.13",
+    "lint-staged": "^7.1.3",
+    "lodash.camelcase": "^4.3.0",
+    "nock": "9.4.2",
+    "prompt": "^1.0.0",
+    "replace-in-file": "^3.0.0-beta.2",
+    "rimraf": "^2.6.1",
+    "rollup": "^0.59.2",
+    "rollup-plugin-babel": "3.0.7",
+    "rollup-plugin-commonjs": "^9.0.0",
+    "rollup-plugin-json": "3.0.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "rollup-plugin-typescript2": "^0.11.1",
+    "semantic-release": "^15.0.0",
+    "ts-jest": "^22.0.0",
+    "ts-node": "6.2.0",
+    "tslint": "^5.8.0",
+    "tslint-config-prettier": "^1.1.0",
+    "tslint-config-standard": "^7.0.0",
+    "typedoc": "^0.11.0",
+    "typescript": "^2.6.2",
+    "validate-commit-msg": "^2.12.2"
+  },
+  "dependencies": {
+    "crypto-js": "3.1.8",
+    "node-fetch": "2.2.0",
+    "query-string": "6.1.0"
+  }
+}
