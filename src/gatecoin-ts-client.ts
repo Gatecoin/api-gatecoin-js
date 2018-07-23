@@ -1,4 +1,9 @@
-// Import here Polyfills if needed. Recommended core-js (npm i -D core-js)
-// import "core-js/fn/array.find"
-// ...
-export default class DummyClass {}
+class Client {
+  constructor(private testVar: string) {}
+
+  getVar() {
+    return this.testVar
+  }
+}
+
+export default Client

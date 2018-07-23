@@ -1,0 +1,15 @@
+{
+  "roots": ["e2e/node"],
+  "transform": {
+    ".(ts|tsx)": "./node_modules/ts-jest/preprocessor.js"
+  },
+  "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js"
+  ],
+  "setupFiles": [
+    "./e2e/env"
+  ]
+}
