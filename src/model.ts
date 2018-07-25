@@ -1,14 +1,3 @@
-
-// MarketDepthResponse {
-//   Currency (string),
-//     Asks (Array[Limit]),
-//     Bids (Array[Limit]),
-//     ResponseStatus (ResponseStatus)
-// }
-// Limit {
-//   Price (double),
-//     Volume (double)
-// }
 interface MarketDepthResponse {
   asks: Array<Limit>;
   bids: Array<Limit>;
@@ -19,7 +8,28 @@ interface Limit {
   volume: number;
 }
 
+interface BalancesResponse {
+  balances: Array<AccountBalance>;
+  responseStatus: ResponseStatus;
+}
+
+interface AccountBalance {
+  currency: string;
+  balance: number;
+  availableBalance: number;
+  pendingIncoming: number;
+  pendingOutgoing: number;
+  openOrder: number;
+  pledging: number;
+  isDigital: boolean;
+}
+
+interface ResponseStatus {
+  message: string;
+}
+
 export {
   MarketDepthResponse,
-  Limit
+  Limit,
+  BalancesResponse
 }
