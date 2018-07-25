@@ -1,9 +1,14 @@
-import Client from '../../src/gatecoin-ts-client';
+import Client from '../../src/gatecoin-client';
 
-describe('E2E test', () => {
-  it('works if true is truthy', () => {
+describe('Client', () => {
+  it('should return a list of orders', async () => {
     const env = (window as any).__env__;
-    const client = new Client(env.TEST_VAR as string);
-    expect(client.getVar()).toEqual("omg")
+    const client = new Client({
+      baseUrl: env.E2E_TEST_URL as string
+    });
+    expect(await client.getOrderBook('BTCEUR')).toEqual({
+      asks: [],
+      bids: []
+    });
   })
 });

@@ -11,5 +11,6 @@
   ],
   "setupFiles": [
     "./e2e/env"
-  ]
+  ],
+  "testEnvironment": "node"
 }

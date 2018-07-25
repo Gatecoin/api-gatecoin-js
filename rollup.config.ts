@@ -7,7 +7,7 @@ import json from 'rollup-plugin-json'
 
 const pkg = require('./package.json')
 
-const libraryName = 'gatecoin-ts-client'
+const libraryName = 'gatecoin-client'
 
 export default {
   input: `src/${libraryName}.ts`,

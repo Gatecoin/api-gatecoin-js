@@ -19,7 +19,18 @@ module.exports = function(config) {
     singleRun: true,
     concurrency: Infinity,
     envPreprocessor: [
-      'TEST_VAR',
-    ]
+      'E2E_TEST_URL',
+    ],
+    karmaTypescriptConfig: {
+      compilerOptions: {
+        emitDecoratorMetadata: true,
+        experimentalDecorators: true,
+        module: "commonjs",
+        sourceMap: true,
+        target: "ES5",
+        lib: ["es2015", "es2016", "es2017", "dom"],
+      },
+      exclude: ["node_modules", "tools"]
+    }
   })
 };
