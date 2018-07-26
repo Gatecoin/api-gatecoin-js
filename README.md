@@ -52,16 +52,20 @@ E2E_TEST_PRIVATE_KEY=your private key
 To test the resulting builds:
 
 1. Build the library and register it for linkage:
+
 ```bash
 npm run build
 npm link
 ```
+
 2. Go to the tests, install dependencies and link the library
+
 ```bash
 cd test-build
 npm i
 npm link gatecoin-ts-client-dev
 ```
+
 3. To test the Node.js build run `npm run test-node`.
 3. To test the web build `npm run test-web` and open `http://localhost:10001` in your browser. 
 
