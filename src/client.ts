@@ -23,10 +23,21 @@ class Client {
     this.options = Object.assign({}, defaultOptions, options);
   }
 
+  /**
+   * Gets prices and market depth for the currency pair.
+   *
+   * @param {string} pair
+   * @returns {Promise<MarketDepthResponse>}
+   */
   async getOrderBook(pair: string): Promise<MarketDepthResponse> {
     return this.request(`/${pair}/OrderBook`);
   }
 
+  /**
+   * Gets the available balance for each currency for the logged in account.
+   *
+   * @returns {Promise<BalancesResponse>}
+   */
   async getBalances(): Promise<BalancesResponse> {
     return this.request(`/Balance/Balances`);
   }
