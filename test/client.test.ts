@@ -1,5 +1,6 @@
 import Client, {MarketDepthResponse, BalancesResponse, BalanceResponse} from '../src/node-client';
 import nock from 'nock';
+import {TransactionsResponse} from "../src/model";
 
 const getCient = () => new Client({
   baseUrl: 'http://api.com',
@@ -127,5 +128,35 @@ describe('Client', () => {
     const client = getCient();
 
     expect(await client.getBalance('USD')).toEqual(result);
+  });
+
+  it('getTransactionHistory()', async () => {
+    const result: TransactionsResponse = {
+      "transactions": [
+        {
+          "transactionId": 5172181,
+          "transactionTime": "1531282245",
+          "price": 1,
+          "quantity": 1
+        },
+        {
+          "transactionId": 5115334,
+          "transactionTime": "1530601647",
+          "price": 1,
+          "quantity": 0.01
+        }
+      ],
+      "responseStatus": {
+        "message": "OK"
+      }
+    };
+
+    nock('http://api.com')
+      .get('/Public/TransactionsHistory/BTCEUR')
+      .reply(200, result);
+
+    const client = getCient();
+
+    expect(await client.getTransactionHistory('BTCEUR')).toEqual(result);
   });
 });

@@ -27,6 +27,45 @@ interface AccountBalance {
   isDigital: boolean;
 }
 
+// TransactionsResponse {
+//   Transactions (Array[Transaction]),
+//     ResponseStatus (ResponseStatus)
+// }
+// Transaction {
+//   TransactionId (long),
+//     TransactionTime (Date),
+//     Price (double),
+//     Quantity (double),
+//     CurrencyPair (string),
+//     Way (string),
+//     AskOrderId (string),
+//     BidOrderId (string)
+// }
+
+// {
+//   "transactionId": 5172181,
+//   "transactionTime": "1531282245",
+//   "price": 1,
+//   "quantity": 1
+// }
+
+interface TransactionsResponse extends Response {
+  transactions: Array<Transaction>;
+}
+
+// doesn't match the swagger definition
+interface Transaction {
+  transactionId: number;
+  transactionTime: string;
+  price: number;
+  quantity: number;
+}
+
+enum Way {
+  Ask = 'Ask',
+  Bid = 'Bid',
+}
+
 interface Response {
   responseStatus: ResponseStatus;
 }
@@ -40,4 +79,6 @@ export {
   Limit,
   BalancesResponse,
   BalanceResponse,
+  TransactionsResponse,
+  Way,
 }

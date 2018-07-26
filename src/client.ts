@@ -1,4 +1,4 @@
-import {MarketDepthResponse, BalancesResponse, BalanceResponse} from './model';
+import {MarketDepthResponse, BalancesResponse, BalanceResponse, TransactionsResponse} from './model';
 import {sign} from './auth';
 
 interface ClientOptions {
@@ -41,6 +41,16 @@ class Client {
    */
   async getBalances(): Promise<BalancesResponse> {
     return this.request(`/Balance/Balances`);
+  }
+
+  /**
+   * Gets all transactions for the given pair.
+   *
+   * @param {string} pair
+   * @returns {Promise<TransactionsResponse>}
+   */
+  async getTransactionHistory(pair: string): Promise<TransactionsResponse> {
+    return this.request(`/Public/TransactionsHistory/${pair}`);
   }
 
   /**
