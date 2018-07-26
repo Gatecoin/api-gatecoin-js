@@ -1,4 +1,4 @@
-interface MarketDepthResponse {
+interface MarketDepthResponse extends Response {
   asks: Array<Limit>;
   bids: Array<Limit>;
 }
@@ -8,9 +8,12 @@ interface Limit {
   volume: number;
 }
 
-interface BalancesResponse {
+interface BalancesResponse extends Response {
   balances: Array<AccountBalance>;
-  responseStatus: ResponseStatus;
+}
+
+interface BalanceResponse extends Response {
+  balance: AccountBalance;
 }
 
 interface AccountBalance {
@@ -24,6 +27,10 @@ interface AccountBalance {
   isDigital: boolean;
 }
 
+interface Response {
+  responseStatus: ResponseStatus;
+}
+
 interface ResponseStatus {
   message: string;
 }
@@ -31,5 +38,6 @@ interface ResponseStatus {
 export {
   MarketDepthResponse,
   Limit,
-  BalancesResponse
+  BalancesResponse,
+  BalanceResponse,
 }

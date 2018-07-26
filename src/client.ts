@@ -1,4 +1,4 @@
-import {MarketDepthResponse, BalancesResponse} from './model';
+import {MarketDepthResponse, BalancesResponse, BalanceResponse} from './model';
 import {sign} from './auth';
 
 interface ClientOptions {
@@ -16,6 +16,7 @@ class Client {
       baseUrl: 'https://api.gatecoin.com/v1',
     };
 
+    /* istanbul ignore next */
     if (typeof window !== 'undefined' && window.fetch) {
       defaultOptions.fetch = window.fetch;
     }
@@ -40,6 +41,16 @@ class Client {
    */
   async getBalances(): Promise<BalancesResponse> {
     return this.request(`/Balance/Balances`);
+  }
+
+  /**
+   * Gets the available balance for s currency for the logged in account.
+   *
+   * @param {string} currency
+   * @returns {Promise<BalanceResponse>}
+   */
+  async getBalance(currency: string): Promise<BalanceResponse> {
+    return this.request(`/Balance/Balances/${currency}`);
   }
 
   private async request(path: string) {

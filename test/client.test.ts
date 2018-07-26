@@ -1,4 +1,4 @@
-import Client, {MarketDepthResponse, BalancesResponse} from '../src/node-client';
+import Client, {MarketDepthResponse, BalancesResponse, BalanceResponse} from '../src/node-client';
 import nock from 'nock';
 
 const getCient = () => new Client({
@@ -11,7 +11,10 @@ describe('Client', () => {
   it('should have a default base url', async () => {
     const result: MarketDepthResponse = {
       asks: [],
-      bids: []
+      bids: [],
+      responseStatus: {
+        message: 'OK'
+      }
     };
 
     nock('https://api.gatecoin.com/v1')
@@ -47,7 +50,10 @@ describe('Client', () => {
   it('getOrderBook()', async () => {
     const result: MarketDepthResponse = {
       asks: [],
-      bids: []
+      bids: [],
+      responseStatus: {
+        message: 'OK'
+      }
     };
 
     nock('http://api.com')
@@ -95,5 +101,31 @@ describe('Client', () => {
     const client = getCient();
 
     expect(await client.getBalances()).toEqual(result);
+  });
+
+  it('getBalance()', async () => {
+    const result: BalanceResponse = {
+      "balance": {
+        "currency": "USD",
+        "balance": 0,
+        "availableBalance": 0,
+        "pendingIncoming": 0,
+        "pendingOutgoing": 0,
+        "openOrder": 0,
+        "pledging": 0,
+        "isDigital": false
+      },
+      "responseStatus": {
+        "message": "OK"
+      }
+    };
+
+    nock('http://api.com')
+      .get('/Balance/Balances/USD')
+      .reply(200, result);
+
+    const client = getCient();
+
+    expect(await client.getBalance('USD')).toEqual(result);
   });
 });
