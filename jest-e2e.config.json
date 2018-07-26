@@ -1,5 +1,5 @@
 {
-  "roots": ["e2e/node"],
+  "roots": ["test-e2e/node"],
   "transform": {
     ".(ts|tsx)": "./node_modules/ts-jest/preprocessor.js"
   },
@@ -10,7 +10,7 @@
     "js"
   ],
   "setupFiles": [
-    "./e2e/env"
+    "./test-e2e/env"
   ],
   "testEnvironment": "node"
 }

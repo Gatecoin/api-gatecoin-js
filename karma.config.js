@@ -1,11 +1,11 @@
-require('./e2e/env');
+require('./test-e2e/env');
 
 module.exports = function(config) {
   config.set({
     frameworks: ['jasmine', 'karma-typescript'],
     files: [
       'src/**/*.ts',
-      'e2e/web/**/*.ts',
+      'test-e2e/web/**/*.ts',
     ],
     preprocessors: {
       "**/*.ts": ["karma-typescript", 'env']
