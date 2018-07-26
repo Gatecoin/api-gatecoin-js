@@ -24,7 +24,7 @@ console.log(response);
 
 ### Examples
 
-@todo
+Check out the [examples](examples) for hints on implementing common use-case scenarios.
 
 ## Development
 
