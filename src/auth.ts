@@ -1,4 +1,5 @@
-import * as CryptoJS from 'crypto-js';
+import hmacsha256 from 'crypto-js/hmac-sha256';
+import base64 from 'crypto-js/enc-base64';
 
 interface Signature {
   publicKey: string;
@@ -10,8 +11,8 @@ const sign = (url: string, verb: string, publicKey: string, privateKey: string, 
   const contentType = (verb.toLowerCase() === 'get') ? '' : 'application/json';
   const messageToSign = (verb + url + contentType + now).toLowerCase();
 
-  const signature = CryptoJS.HmacSHA256(messageToSign, privateKey);
-  const signatureBase64 = CryptoJS.enc.Base64.stringify(signature);
+  const signature = hmacsha256(messageToSign, privateKey);
+  const signatureBase64 = base64.stringify(signature);
 
   return {
     publicKey,

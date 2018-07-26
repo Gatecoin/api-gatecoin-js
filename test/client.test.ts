@@ -1,4 +1,4 @@
-import Client, {MarketDepthResponse, BalancesResponse} from '../src/gatecoin-client'
+import Client, {MarketDepthResponse, BalancesResponse} from '../src/node-client';
 import nock from 'nock';
 
 const getCient = () => new Client({

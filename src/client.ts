@@ -1,4 +1,3 @@
-import axios from 'axios'
 import {MarketDepthResponse, BalancesResponse} from './model';
 import {sign} from './auth';
 
@@ -6,6 +5,7 @@ interface ClientOptions {
   baseUrl?: string;
   publicKey: string;
   privateKey: string;
+  fetch?: any;
 }
 
 class Client {
@@ -13,8 +13,12 @@ class Client {
 
   constructor(options: ClientOptions) {
     const defaultOptions: Partial<ClientOptions> = {
-      baseUrl: 'https://api.gatecoin.com/v1'
+      baseUrl: 'https://api.gatecoin.com/v1',
     };
+
+    if (typeof window !== 'undefined' && window.fetch) {
+      defaultOptions.fetch = window.fetch;
+    }
 
     this.options = Object.assign({}, defaultOptions, options);
   }
@@ -23,29 +27,33 @@ class Client {
     return this.request(`/${pair}/OrderBook`);
   }
 
-  // @todo: types
   async getBalances(): Promise<BalancesResponse> {
     return this.request(`/Balance/Balances`);
   }
 
   private async request(path: string) {
-    const {baseUrl, privateKey, publicKey} = this.options;
-    const signature = sign(baseUrl + path, 'GET', publicKey, privateKey, String(Date.now() / 1000));
+    const {baseUrl, privateKey, publicKey, fetch} = this.options;
+    const url = baseUrl + path;
+    const signature = sign(url, 'GET', publicKey, privateKey, String(Date.now() / 1000));
 
-    const instance = axios.create({
-      baseURL: baseUrl,
+    const response = await fetch(url, {
       headers: {
         'api_public_key': signature.publicKey,
         'api_request_signature': signature.signature,
         'api_request_date': signature.now,
-      }
+      },
     });
 
-    const response = await instance.get(path);
+    if (!response.ok) {
+      throw new Error(response.statusMessage);
+    }
 
-    return response.data;
+    return response.json();
   }
 }
 
 export default Client
+export {
+  ClientOptions
+}
 export * from './model';

@@ -1,4 +1,4 @@
-import Client from '../../src/gatecoin-client';
+import Client from '../../src/node-client';
 
 describe('Client', () => {
   it('should return a list of orders', async () => {
