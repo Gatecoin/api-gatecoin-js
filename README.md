@@ -40,11 +40,13 @@ Coverage report available in `coverage/lcov-report`.
 
 To run end-to-end tests:
 1. Create a `.env` file in the root folder with the following values:
+
 ```
 E2E_TEST_URL=https://api.gtcprojects.com/v1
 E2E_TEST_PUBLIC_KEY=your public key
 E2E_TEST_PRIVATE_KEY=your private key
 ```
+
 2. Run `npm run test:e2e`
 
 ### Build tests
@@ -67,7 +69,7 @@ npm link gatecoin-ts-client-dev
 ```
 
 3. To test the Node.js build run `npm run test-node`.
-3. To test the web build `npm run test-web` and open `http://localhost:10001` in your browser. 
+4. To test the web build `npm run test-web` and open `http://localhost:10001` in your browser. 
 
 ### CI
 
