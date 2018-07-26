@@ -7,7 +7,7 @@ const main = async () => {
   });
 
   // get transaction history for the BTC/EUR pair
-  const response = await client.getTransactionHistory('BTCEUR');
+  const response = await client.getTrades('BTCEUR');
   console.log(response);
 };
 

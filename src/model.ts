@@ -28,10 +28,10 @@ interface AccountBalance {
 }
 
 // TransactionsResponse {
-//   Transactions (Array[Transaction]),
+//   Transactions (Array[Trade]),
 //     ResponseStatus (ResponseStatus)
 // }
-// Transaction {
+// Trade {
 //   TransactionId (long),
 //     TransactionTime (Date),
 //     Price (double),
@@ -49,16 +49,15 @@ interface AccountBalance {
 //   "quantity": 1
 // }
 
-interface TransactionsResponse extends Response {
-  transactions: Array<Transaction>;
+interface TradesResponse {
+  response: Array<Trade>;
 }
 
-// doesn't match the swagger definition
-interface Transaction {
-  transactionId: number;
-  transactionTime: string;
+interface Trade {
+  tid: number;
+  amount: number;
   price: number;
-  quantity: number;
+  date: string;
 }
 
 enum Way {
@@ -79,6 +78,6 @@ export {
   Limit,
   BalancesResponse,
   BalanceResponse,
-  TransactionsResponse,
+  TradesResponse,
   Way,
 }

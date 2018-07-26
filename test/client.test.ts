@@ -1,6 +1,5 @@
-import Client, {MarketDepthResponse, BalancesResponse, BalanceResponse} from '../src/node-client';
+import Client, {MarketDepthResponse, BalancesResponse, BalanceResponse, TradesResponse} from '../src/node-client';
 import nock from 'nock';
-import {TransactionsResponse} from "../src/model";
 
 const getCient = () => new Client({
   baseUrl: 'http://api.com',
@@ -130,33 +129,30 @@ describe('Client', () => {
     expect(await client.getBalance('USD')).toEqual(result);
   });
 
-  it('getTransactionHistory()', async () => {
-    const result: TransactionsResponse = {
-      "transactions": [
+  it('getTrades()', async () => {
+    const result: TradesResponse = {
+      "response": [
         {
-          "transactionId": 5172181,
-          "transactionTime": "1531282245",
-          "price": 1,
-          "quantity": 1
+          "tid": 5281383,
+          "price": 8278.4,
+          "amount": 0.11,
+          "date": "1532597624"
         },
         {
-          "transactionId": 5115334,
-          "transactionTime": "1530601647",
-          "price": 1,
-          "quantity": 0.01
-        }
+          "tid": 5281386,
+          "price": 8278.4,
+          "amount": 0.12,
+          "date": "1532597658"
+        },
       ],
-      "responseStatus": {
-        "message": "OK"
-      }
     };
 
     nock('http://api.com')
-      .get('/Public/TransactionsHistory/BTCEUR')
+      .get('/BTCEUR/Trades')
       .reply(200, result);
 
     const client = getCient();
 
-    expect(await client.getTransactionHistory('BTCEUR')).toEqual(result);
+    expect(await client.getTrades(  'BTCEUR')).toEqual(result);
   });
 });
