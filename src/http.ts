@@ -1,7 +1,7 @@
 import {sign} from './auth';
 import {stringify} from 'query-string';
 
-const request = async (fetchImpl: any, url: string, auth: {publicKey: string, privateKey: string}, query?: Object, body?: Object) => {
+const request = async <T>(fetchImpl: any, url: string, auth: {publicKey: string, privateKey: string}, query?: Object, body?: Object): Promise<T> => {
   const fullUrl = url + ((query) ? '?' + stringify(query) : '');
 
   const method = (body) ? 'POST' : 'GET';

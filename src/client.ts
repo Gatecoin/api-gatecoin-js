@@ -5,6 +5,7 @@ import {
   TradesResponse,
   OrderRequest,
   OrderResponse,
+  Response,
 } from './model';
 import {request} from './http';
 
@@ -13,6 +14,10 @@ interface ClientOptions {
   publicKey: string;
   privateKey: string;
   fetch?: any;
+}
+
+class GatecoinError {
+  constructor(public errorCode: string, public message: string) {}
 }
 
 class Client {
@@ -37,8 +42,8 @@ class Client {
    * @param {string} pair
    * @returns {Promise<MarketDepthResponse>}
    */
-  async getOrderBook(pair: string): Promise<MarketDepthResponse> {
-    return this.request(`/${pair}/OrderBook`);
+  async getOrderBook(pair: string) {
+    return this.request<MarketDepthResponse>(`/${pair}/OrderBook`);
   }
 
   /**
@@ -46,8 +51,8 @@ class Client {
    *
    * @returns {Promise<BalancesResponse>}
    */
-  async getBalances(): Promise<BalancesResponse> {
-    return this.request(`/Balance/Balances`);
+  async getBalances() {
+    return this.request<BalancesResponse>(`/Balance/Balances`);
   }
 
   /**
@@ -56,8 +61,8 @@ class Client {
    * @param {string} pair
    * @returns {Promise<TransactionsResponse>}
    */
-  async getTrades(pair: string): Promise<TradesResponse> {
-    return this.request(`/${pair}/Trades`);
+  async getTrades(pair: string) {
+    return this.request<TradesResponse>(`/${pair}/Trades`);
   }
 
   /**
@@ -66,8 +71,8 @@ class Client {
    * @param {string} currency
    * @returns {Promise<BalanceResponse>}
    */
-  async getBalance(currency: string): Promise<BalanceResponse> {
-    return this.request(`/Balance/Balances/${currency}`);
+  async getBalance(currency: string) {
+    return this.request<BalanceResponse>(`/Balance/Balances/${currency}`);
   }
 
   /**
@@ -75,19 +80,27 @@ class Client {
    *
    * @param order
    */
-  async order(order: OrderRequest): Promise<OrderResponse> {
-    return this.request(`/Trade/Orders`, order, order);
+  async order(order: OrderRequest) {
+    return this.request<OrderResponse>(`/Trade/Orders`, order, order);
   }
 
-  private async request(path: string, query?: Object, body?: Object) {
+  private async request<T extends Response>(path: string, query?: Object, body?: Object): Promise<T> {
     const {baseUrl, privateKey, publicKey, fetch} = this.options;
 
-    return request(fetch, baseUrl + path, {privateKey, publicKey}, query, body);
+    const result = await request<T>(fetch, baseUrl + path, {privateKey, publicKey}, query, body);
+
+    const {responseStatus} = result;
+    if (responseStatus && responseStatus.errorCode) {
+      throw new GatecoinError(responseStatus.errorCode, responseStatus.message);
+    }
+
+    return result;
   }
 }
 
 export default Client
 export {
-  ClientOptions
+  ClientOptions,
+  GatecoinError,
 }
 export * from './model';

@@ -1,4 +1,4 @@
-import Client, {MarketDepthResponse, BalancesResponse, BalanceResponse, TradesResponse, Way} from '../src/node-client';
+import Client, {MarketDepthResponse, BalancesResponse, BalanceResponse, TradesResponse, Way, GatecoinError} from '../src/node-client';
 import nock from 'nock';
 import {OrderResponse} from "../src/model";
 
@@ -28,6 +28,39 @@ describe('Client', () => {
     });
 
     expect(await client.getOrderBook('BTCEUR')).toEqual(result);
+  });
+
+  it('should trigger an exception on responses with an error', async () => {
+    const order = {
+      code: 'BTCEUR',
+      way: Way.Bid,
+      amount: 1,
+      price: 0.1
+    };
+
+    nock('http://api.com')
+      .post('/Trade/Orders', order)
+      .query(order)
+      .reply(200, {
+        "responseStatus": {
+          "errorCode": "1005",
+          "message": "Insufficient funds"
+        }
+      });
+
+    const client = getCient();
+
+    let error;
+    try {
+      await client.order(order);
+    }
+    catch (e) {
+      error = e;
+    }
+
+    expect(error instanceof GatecoinError).toEqual(true);
+    expect(error.errorCode).toEqual('1005');
+    expect(error.message).toEqual('Insufficient funds');
   });
 
   it('getOrderBook()', async () => {

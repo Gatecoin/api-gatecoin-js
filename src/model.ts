@@ -27,7 +27,7 @@ interface AccountBalance {
   isDigital: boolean;
 }
 
-interface TradesResponse {
+interface TradesResponse extends Response{
   response: Array<Trade>;
 }
 
@@ -58,12 +58,13 @@ interface OrderResponse extends Response {
 }
 
 interface Response {
-  responseStatus: ResponseStatus;
+  responseStatus?: ResponseStatus;
   errors?: Array<any> // @todo
 }
 
 interface ResponseStatus {
   message: string;
+  errorCode?: string;
 }
 
 export {
@@ -75,4 +76,5 @@ export {
   TradesResponse,
   OrderResponse,
   Way,
+  Response,
 }
