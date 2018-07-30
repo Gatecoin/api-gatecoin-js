@@ -151,7 +151,7 @@ describe('Client', () => {
       way: Way.Bid,
       amount: 1,
       price: 0.1
-    }
+    };
 
     nock('http://api.com')
       .post('/Trade/Orders', order)
