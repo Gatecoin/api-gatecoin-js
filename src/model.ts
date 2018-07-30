@@ -27,29 +27,7 @@ interface AccountBalance {
   isDigital: boolean;
 }
 
-// TransactionsResponse {
-//   Transactions (Array[Trade]),
-//     ResponseStatus (ResponseStatus)
-// }
-// Trade {
-//   TransactionId (long),
-//     TransactionTime (Date),
-//     Price (double),
-//     Quantity (double),
-//     CurrencyPair (string),
-//     Way (string),
-//     AskOrderId (string),
-//     BidOrderId (string)
-// }
-
-// {
-//   "transactionId": 5172181,
-//   "transactionTime": "1531282245",
-//   "price": 1,
-//   "quantity": 1
-// }
-
-interface TradesResponse {
+interface TradesResponse extends Response{
   response: Array<Trade>;
 }
 
@@ -65,12 +43,34 @@ enum Way {
   Bid = 'Bid',
 }
 
+interface OrderRequest {
+  code: string;
+  way: Way;
+  amount: number;
+  price: number;
+  spendAmount?: number;
+  externalOrderId?: number;
+  validationCode?: number;
+}
+
+interface OrderResponse extends Response {
+  clOrderId: string;
+}
+
 interface Response {
   responseStatus: ResponseStatus;
 }
 
 interface ResponseStatus {
   message: string;
+  errorCode?: string;
+  errors?: Array<FieldError>
+}
+
+interface FieldError {
+  message: string;
+  errorCode: string;
+  fieldName: string;
 }
 
 export {
@@ -78,6 +78,10 @@ export {
   Limit,
   BalancesResponse,
   BalanceResponse,
+  OrderRequest,
   TradesResponse,
+  OrderResponse,
   Way,
+  Response,
+  FieldError
 }

@@ -17,7 +17,7 @@ export default [
       { file: pkg.main, name: camelCase(libraryName), format: 'cjs', sourcemap: true, exports: 'named' },
     ],
     // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
-    external: ['node-fetch', 'crypto-js'],
+    external: ['node-fetch', 'crypto-js', 'query-string'],
     plugins: [
       // Compile TypeScript files
       typescript({ useTsconfigDeclarationDir: true }),

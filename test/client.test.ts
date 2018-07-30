@@ -1,5 +1,6 @@
-import Client, {MarketDepthResponse, BalancesResponse, BalanceResponse, TradesResponse} from '../src/node-client';
+import Client, {MarketDepthResponse, BalancesResponse, BalanceResponse, TradesResponse, Way, GatecoinError} from '../src/node-client';
 import nock from 'nock';
+import {OrderResponse} from "../src/model";
 
 const getCient = () => new Client({
   baseUrl: 'http://api.com',
@@ -29,22 +30,47 @@ describe('Client', () => {
     expect(await client.getOrderBook('BTCEUR')).toEqual(result);
   });
 
-  it('should handle errors correctly', async () => {
+  it('should trigger an exception on responses with an error', async () => {
+    const order = {
+      code: 'BTCEUR',
+      way: Way.Bid,
+      amount: 1,
+      price: 0.1
+    };
+
+    const status = {
+      "errorCode": "1005",
+      "message": "Insufficient funds",
+      "errors": [
+        {
+          "errorCode": "1004",
+          "fieldName": "Amount, SpendAmount",
+          "message": "At least one property must be greater than 0"
+        }
+      ]
+    };
+
     nock('http://api.com')
-      .get('/BTCEUR/OrderBook')
-      .reply(500, {});
+      .post('/Trade/Orders', order)
+      .query(order)
+      .reply(200, {
+        "responseStatus": status
+      });
 
     const client = getCient();
 
     let error;
     try {
-      await client.getOrderBook('BTCEUR');
+      await client.order(order);
     }
     catch (e) {
       error = e;
     }
 
-    expect(error).toBeDefined();
+    expect(error instanceof GatecoinError).toEqual(true);
+    expect(error.errorCode).toEqual(status.errorCode);
+    expect(error.message).toEqual(status.message);
+    expect(error.errors).toEqual(status.errors);
   });
 
   it('getOrderBook()', async () => {
@@ -145,6 +171,9 @@ describe('Client', () => {
           "date": "1532597658"
         },
       ],
+      "responseStatus": {
+        "message": "OK"
+      }
     };
 
     nock('http://api.com')
@@ -154,5 +183,29 @@ describe('Client', () => {
     const client = getCient();
 
     expect(await client.getTrades(  'BTCEUR')).toEqual(result);
+  });
+
+  it('order()', async () => {
+    const result: OrderResponse = {
+      "clOrderId": "BK11502633428",
+      "responseStatus": {
+        "message": "OK"
+      }
+    };
+    const order = {
+      code: 'BTCEUR',
+      way: Way.Bid,
+      amount: 1,
+      price: 0.1
+    };
+
+    nock('http://api.com')
+      .post('/Trade/Orders', order)
+      .query(order)
+      .reply(200, result);
+
+    const client = getCient();
+
+    expect(await client.order(order)).toEqual(result);
   });
 });
