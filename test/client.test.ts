@@ -38,14 +38,23 @@ describe('Client', () => {
       price: 0.1
     };
 
+    const status = {
+      "errorCode": "1005",
+      "message": "Insufficient funds",
+      "errors": [
+        {
+          "errorCode": "1004",
+          "fieldName": "Amount, SpendAmount",
+          "message": "At least one property must be greater than 0"
+        }
+      ]
+    };
+
     nock('http://api.com')
       .post('/Trade/Orders', order)
       .query(order)
       .reply(200, {
-        "responseStatus": {
-          "errorCode": "1005",
-          "message": "Insufficient funds"
-        }
+        "responseStatus": status
       });
 
     const client = getCient();
@@ -59,8 +68,9 @@ describe('Client', () => {
     }
 
     expect(error instanceof GatecoinError).toEqual(true);
-    expect(error.errorCode).toEqual('1005');
-    expect(error.message).toEqual('Insufficient funds');
+    expect(error.errorCode).toEqual(status.errorCode);
+    expect(error.message).toEqual(status.message);
+    expect(error.errors).toEqual(status.errors);
   });
 
   it('getOrderBook()', async () => {
@@ -161,6 +171,9 @@ describe('Client', () => {
           "date": "1532597658"
         },
       ],
+      "responseStatus": {
+        "message": "OK"
+      }
     };
 
     nock('http://api.com')

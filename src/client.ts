@@ -6,6 +6,7 @@ import {
   OrderRequest,
   OrderResponse,
   Response,
+  FieldError
 } from './model';
 import {request} from './http';
 
@@ -17,7 +18,7 @@ interface ClientOptions {
 }
 
 class GatecoinError {
-  constructor(public errorCode: string, public message: string) {}
+  constructor(public errorCode: string, public message: string, public errors?: Array<FieldError>) {}
 }
 
 class Client {
@@ -91,7 +92,7 @@ class Client {
 
     const {responseStatus} = result;
     if (responseStatus && responseStatus.errorCode) {
-      throw new GatecoinError(responseStatus.errorCode, responseStatus.message);
+      throw new GatecoinError(responseStatus.errorCode, responseStatus.message, responseStatus.errors);
     }
 
     return result;

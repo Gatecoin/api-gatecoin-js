@@ -40,7 +40,6 @@ describe('Client', () => {
       amount: 1,
       price: 0.1
     });
-    console.log(response);
 
     expect(typeof response.clOrderId).toEqual('string');
     expect(response.responseStatus.message).toEqual('OK');

@@ -58,13 +58,19 @@ interface OrderResponse extends Response {
 }
 
 interface Response {
-  responseStatus?: ResponseStatus;
-  errors?: Array<any> // @todo
+  responseStatus: ResponseStatus;
 }
 
 interface ResponseStatus {
   message: string;
   errorCode?: string;
+  errors?: Array<FieldError>
+}
+
+interface FieldError {
+  message: string;
+  errorCode: string;
+  fieldName: string;
 }
 
 export {
@@ -77,4 +83,5 @@ export {
   OrderResponse,
   Way,
   Response,
+  FieldError
 }
