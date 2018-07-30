@@ -44,5 +44,7 @@ describe('Client', () => {
 
     expect(typeof response.clOrderId).toEqual('string');
     expect(response.responseStatus.message).toEqual('OK');
+
+    // @todo: delete order
   });
 });
