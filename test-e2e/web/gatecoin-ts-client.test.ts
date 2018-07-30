@@ -37,7 +37,7 @@ describe('Client', () => {
       privateKey: env.E2E_TEST_PRIVATE_KEY as string,
     });
 
-    const response = await client.order({
+    const response = await client.placeOrder({
       code: 'BTCEUR',
       way: Way.Bid,
       amount: 1,

@@ -3,8 +3,8 @@ import {
   BalancesResponse,
   BalanceResponse,
   TradesResponse,
-  OrderRequest,
-  OrderResponse,
+  OrderParams,
+  PlaceOrderResponse,
   Response,
   FieldError
 } from './model';
@@ -81,8 +81,8 @@ class Client {
    *
    * @param order
    */
-  async order(order: OrderRequest) {
-    return this.request<OrderResponse>(`/Trade/Orders`, order, order);
+  async placeOrder(order: OrderParams) {
+    return this.request<PlaceOrderResponse>(`/Trade/Orders`, order, order);
   }
 
   private async request<T extends Response>(path: string, query?: Object, body?: Object): Promise<T> {

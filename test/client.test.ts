@@ -1,6 +1,6 @@
 import Client, {MarketDepthResponse, BalancesResponse, BalanceResponse, TradesResponse, Way, GatecoinError} from '../src/node-client';
 import nock from 'nock';
-import {OrderResponse} from "../src/model";
+import {PlaceOrderResponse} from "../src/model";
 
 const getCient = () => new Client({
   baseUrl: 'http://api.com',
@@ -61,7 +61,7 @@ describe('Client', () => {
 
     let error;
     try {
-      await client.order(order);
+      await client.placeOrder(order);
     }
     catch (e) {
       error = e;
@@ -185,8 +185,8 @@ describe('Client', () => {
     expect(await client.getTrades(  'BTCEUR')).toEqual(result);
   });
 
-  it('order()', async () => {
-    const result: OrderResponse = {
+  it('placeOrder()', async () => {
+    const result: PlaceOrderResponse = {
       "clOrderId": "BK11502633428",
       "responseStatus": {
         "message": "OK"
@@ -206,6 +206,6 @@ describe('Client', () => {
 
     const client = getCient();
 
-    expect(await client.order(order)).toEqual(result);
+    expect(await client.placeOrder(order)).toEqual(result);
   });
 });

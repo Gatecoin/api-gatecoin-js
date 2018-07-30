@@ -7,7 +7,7 @@ const main = async () => {
   });
 
   // place a limit buy order for BTC
-  const response = await client.order({
+  const response = await client.placeOrder({
     code: 'BTCEUR',
     way: Way.Bid,
     amount: 1,

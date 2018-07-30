@@ -43,7 +43,7 @@ enum Way {
   Bid = 'Bid',
 }
 
-interface OrderRequest {
+interface OrderParams {
   code: string;
   way: Way;
   amount: number;
@@ -53,7 +53,7 @@ interface OrderRequest {
   validationCode?: number;
 }
 
-interface OrderResponse extends Response {
+interface PlaceOrderResponse extends Response {
   clOrderId: string;
 }
 
@@ -73,14 +73,38 @@ interface FieldError {
   fieldName: string;
 }
 
+/**
+ * {
+  "placeOrder": {
+    "code": "BTCEUR",
+    "clOrderId": "BK11502639796",
+    "side": 0,
+    "price": 0.1,
+    "initialQuantity": 1,
+    "remainingQuantity": 1,
+    "status": 1,
+    "statusDesc": "New",
+    "tranSeqNo": 109725,
+    "type": 0,
+    "date": "1532970598",
+    "trades": []
+  },
+  "responseStatus": {
+    "message": "OK"
+  }
+}
+ */
+
+
+
 export {
   MarketDepthResponse,
   Limit,
   BalancesResponse,
   BalanceResponse,
-  OrderRequest,
+  OrderParams,
   TradesResponse,
-  OrderResponse,
+  PlaceOrderResponse,
   Way,
   Response,
   FieldError
