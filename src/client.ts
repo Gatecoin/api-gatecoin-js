@@ -70,6 +70,11 @@ class Client {
     return this.request(`/Balance/Balances/${currency}`);
   }
 
+  /**
+   * Place an order at the exchange.
+   *
+   * @param order
+   */
   async order(order: OrderRequest): Promise<OrderResponse> {
     return this.request(`/Trade/Orders`, order, order);
   }
