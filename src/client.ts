@@ -6,7 +6,8 @@ import {
   OrderParams,
   PlaceOrderResponse,
   Response,
-  FieldError
+  FieldError,
+  OrderResponse,
 } from './model';
 import {request} from './http';
 
@@ -83,6 +84,10 @@ class Client {
    */
   async placeOrder(order: OrderParams) {
     return this.request<PlaceOrderResponse>(`/Trade/Orders`, order, order);
+  }
+
+  async getOrder(orderId: string) {
+    return this.request<OrderResponse>(`/Trade/Orders/${orderId}`);
   }
 
   private async request<T extends Response>(path: string, query?: Object, body?: Object): Promise<T> {

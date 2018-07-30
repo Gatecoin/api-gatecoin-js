@@ -57,6 +57,39 @@ interface PlaceOrderResponse extends Response {
   clOrderId: string;
 }
 
+interface OrderResponse extends Response {
+  order: Order;
+}
+
+interface Order {
+  code: string;
+  clOrderId: string;
+  side: number;
+  price: number;
+  initialQuantity: number;
+  remainingQuantity: number;
+  status: number;
+  statusDesc: string;
+  tranSeqNo: number;
+  type: number;
+  date: string;
+  trades: Array<TraderTransaction>;
+}
+
+interface TraderTransaction {
+  transactionId: number;
+  transactionTime: string;
+  askOrderID: string;
+  bidOrderID: string;
+  price: number;
+  quantity: number;
+  currencyPair: string;
+  way: Way;
+  feeRole: string;
+  feeRate: number;
+  feeAmount: number;
+}
+
 interface Response {
   responseStatus: ResponseStatus;
 }
@@ -73,30 +106,6 @@ interface FieldError {
   fieldName: string;
 }
 
-/**
- * {
-  "placeOrder": {
-    "code": "BTCEUR",
-    "clOrderId": "BK11502639796",
-    "side": 0,
-    "price": 0.1,
-    "initialQuantity": 1,
-    "remainingQuantity": 1,
-    "status": 1,
-    "statusDesc": "New",
-    "tranSeqNo": 109725,
-    "type": 0,
-    "date": "1532970598",
-    "trades": []
-  },
-  "responseStatus": {
-    "message": "OK"
-  }
-}
- */
-
-
-
 export {
   MarketDepthResponse,
   Limit,
@@ -107,5 +116,8 @@ export {
   PlaceOrderResponse,
   Way,
   Response,
-  FieldError
+  FieldError,
+  OrderResponse,
+  Order,
+  TraderTransaction,
 }

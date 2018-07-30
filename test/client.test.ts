@@ -1,4 +1,12 @@
-import Client, {MarketDepthResponse, BalancesResponse, BalanceResponse, TradesResponse, Way, GatecoinError} from '../src/node-client';
+import Client, {
+  MarketDepthResponse,
+  BalancesResponse,
+  BalanceResponse,
+  TradesResponse,
+  Way,
+  GatecoinError,
+  OrderResponse,
+} from '../src/node-client';
 import nock from 'nock';
 import {PlaceOrderResponse} from "../src/model";
 
@@ -207,5 +215,35 @@ describe('Client', () => {
     const client = getCient();
 
     expect(await client.placeOrder(order)).toEqual(result);
+  });
+
+  it('getOrder()', async () => {
+    const result: OrderResponse = {
+      "order": {
+        "code": "BTCEUR",
+        "clOrderId": "BK11502639796",
+        "side": 0,
+        "price": 0.1,
+        "initialQuantity": 1,
+        "remainingQuantity": 1,
+        "status": 1,
+        "statusDesc": "New",
+        "tranSeqNo": 109725,
+        "type": 0,
+        "date": "1532970598",
+        "trades": []
+      },
+      "responseStatus": {
+        "message": "OK"
+      }
+    };
+
+    nock('http://api.com')
+      .get('/Trade/Orders/BK11502639796')
+      .reply(200, result);
+
+    const client = getCient();
+
+    expect(await client.getOrder('BK11502639796')).toEqual(result);
   });
 });
