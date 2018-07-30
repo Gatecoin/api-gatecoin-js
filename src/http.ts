@@ -1,7 +1,6 @@
 import {sign} from './auth';
 import {stringify} from 'query-string';
 
-
 const request = async (fetchImpl: any, url: string, auth: {publicKey: string, privateKey: string}, query?: Object, body?: Object) => {
   const fullUrl = url + ((query) ? '?' + stringify(query) : '');
 
@@ -30,7 +29,7 @@ const request = async (fetchImpl: any, url: string, auth: {publicKey: string, pr
   }
 
   return response.json();
-}
+};
 
 export {
   request,

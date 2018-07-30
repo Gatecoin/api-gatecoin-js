@@ -4,7 +4,7 @@ import {
   BalanceResponse,
   TradesResponse,
   OrderRequest,
-  TradeResponse,
+  OrderResponse,
 } from './model';
 import {request} from './http';
 
@@ -70,7 +70,7 @@ class Client {
     return this.request(`/Balance/Balances/${currency}`);
   }
 
-  async order(order: OrderRequest): Promise<TradeResponse> {
+  async order(order: OrderRequest): Promise<OrderResponse> {
     return this.request(`/Trade/Orders`, order, order);
   }
 

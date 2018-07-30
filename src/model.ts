@@ -53,7 +53,7 @@ interface OrderRequest {
   validationCode?: number;
 }
 
-interface TradeResponse extends Response {
+interface OrderResponse extends Response {
   clOrderId: string;
 }
 
@@ -73,6 +73,6 @@ export {
   BalanceResponse,
   OrderRequest,
   TradesResponse,
-  TradeResponse,
+  OrderResponse,
   Way,
 }
