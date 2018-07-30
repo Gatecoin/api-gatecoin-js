@@ -1,5 +1,13 @@
-import {MarketDepthResponse, BalancesResponse, BalanceResponse, TradesResponse} from './model';
+import {
+  MarketDepthResponse,
+  BalancesResponse,
+  BalanceResponse,
+  TradesResponse,
+  OrderRequest,
+  TradeResponse,
+} from './model';
 import {sign} from './auth';
+import {stringify} from 'query-string'
 
 interface ClientOptions {
   baseUrl?: string;
@@ -63,21 +71,36 @@ class Client {
     return this.request(`/Balance/Balances/${currency}`);
   }
 
-  private async request(path: string) {
-    const {baseUrl, privateKey, publicKey, fetch} = this.options;
-    const url = baseUrl + path;
-    const signature = sign(url, 'GET', publicKey, privateKey, String(Date.now() / 1000));
+  async order(order: OrderRequest): Promise<TradeResponse> {
+    return this.request(`/Trade/Orders`, order, order);
+  }
 
-    const response = await fetch(url, {
+  private async request(path: string, query?: Object, body?: Object) {
+    const {baseUrl, privateKey, publicKey, fetch} = this.options;
+    const url = baseUrl + path + ((query) ? '?' + stringify(query) : null);
+
+    const method = (body) ? 'POST' : 'GET';
+
+    const signature = sign(url, method, publicKey, privateKey, String(Date.now() / 1000));
+
+    const options: any = {
+      method,
       headers: {
         'api_public_key': signature.publicKey,
         'api_request_signature': signature.signature,
         'api_request_date': signature.now,
       },
-    });
+    };
+
+    if (body) {
+      options.body = JSON.stringify(body);
+      options.headers['content-type'] = 'application/json';
+    }
+
+    const response = await fetch(url, options);
 
     if (!response.ok) {
-      throw new Error(response.statusMessage);
+      throw new Error(response.statusText);
     }
 
     return response.json();
