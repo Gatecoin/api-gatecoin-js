@@ -16,7 +16,7 @@ export default {
     // json(),
     typescript({
       tsconfigOverride: {
-        compilerOptions: {module: 'ES2015'}
+        compilerOptions: {module: 'ES2015', target: 'es3'}
       }
     }),
     resolve({
