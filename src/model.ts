@@ -47,7 +47,7 @@ interface OrderParams {
   code: string;
   way: Way;
   amount: number;
-  price: number;
+  price?: number;
   spendAmount?: number;
   externalOrderId?: number;
   validationCode?: number;

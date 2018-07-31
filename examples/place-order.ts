@@ -27,6 +27,22 @@ const main = async () => {
     price: 11000
   });
   console.log(sellResponse);
+
+  // to place a market buy order, don't specify the price
+  const marketBuyResponse = await client.placeOrder({
+    code: 'BTCEUR',
+    way: Way.Bid,
+    amount: 1,
+  });
+  console.log(marketBuyResponse);
+
+  // to place a market sell order, don't specify the price
+  const marketSellResponse = await client.placeOrder({
+    code: 'BTCEUR',
+    way: Way.Ask,
+    amount: 1,
+  });
+  console.log(marketSellResponse);
 };
 
 main();
