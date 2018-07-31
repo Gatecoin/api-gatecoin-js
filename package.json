@@ -5,7 +5,7 @@
   "keywords": [],
   "main": "dist/gatecoin-client.cjs.js",
   "browser": "dist/gatecoin-client.umd.js",
-  "typings": "dist/types/client.d.ts",
+  "typings": "dist/types/src/client.d.ts",
   "files": [
     "dist"
   ],
