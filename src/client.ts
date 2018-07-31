@@ -3,10 +3,11 @@ import {
   BalancesResponse,
   BalanceResponse,
   TradesResponse,
-  OrderRequest,
-  OrderResponse,
+  OrderParams,
+  PlaceOrderResponse,
   Response,
-  FieldError
+  FieldError,
+  OrderResponse,
 } from './model';
 import {request} from './http';
 
@@ -81,8 +82,18 @@ class Client {
    *
    * @param order
    */
-  async order(order: OrderRequest) {
-    return this.request<OrderResponse>(`/Trade/Orders`, order, order);
+  async placeOrder(order: OrderParams) {
+    return this.request<PlaceOrderResponse>(`/Trade/Orders`, order, order);
+  }
+
+  /**
+   * Gets an order for the logged in trader.
+   *
+   * @param {string} orderId
+   * @returns {Promise<OrderResponse>}
+   */
+  async getOrder(orderId: string) {
+    return this.request<OrderResponse>(`/Trade/Orders/${orderId}`);
   }
 
   private async request<T extends Response>(path: string, query?: Object, body?: Object): Promise<T> {

@@ -43,7 +43,7 @@ enum Way {
   Bid = 'Bid',
 }
 
-interface OrderRequest {
+interface OrderParams {
   code: string;
   way: Way;
   amount: number;
@@ -53,8 +53,41 @@ interface OrderRequest {
   validationCode?: number;
 }
 
-interface OrderResponse extends Response {
+interface PlaceOrderResponse extends Response {
   clOrderId: string;
+}
+
+interface OrderResponse extends Response {
+  order: Order;
+}
+
+interface Order {
+  code: string;
+  clOrderId: string;
+  side: number;
+  price: number;
+  initialQuantity: number;
+  remainingQuantity: number;
+  status: number;
+  statusDesc: string;
+  tranSeqNo: number;
+  type: number;
+  date: string;
+  trades: Array<TraderTransaction>;
+}
+
+interface TraderTransaction {
+  transactionId: number;
+  transactionTime: string;
+  askOrderID: string;
+  bidOrderID: string;
+  price: number;
+  quantity: number;
+  currencyPair: string;
+  way: Way;
+  feeRole: string;
+  feeRate: number;
+  feeAmount: number;
 }
 
 interface Response {
@@ -78,10 +111,13 @@ export {
   Limit,
   BalancesResponse,
   BalanceResponse,
-  OrderRequest,
+  OrderParams,
   TradesResponse,
-  OrderResponse,
+  PlaceOrderResponse,
   Way,
   Response,
-  FieldError
+  FieldError,
+  OrderResponse,
+  Order,
+  TraderTransaction,
 }
