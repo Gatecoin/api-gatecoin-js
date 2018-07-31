@@ -9,6 +9,7 @@ import Client, {
   CancelOrderResponse,
   CancelOrdersResponse,
   OrdersResponse,
+  TickersResponse,
 } from '../src/node-client';
 import nock from 'nock';
 import {PlaceOrderResponse} from "../src/model";
@@ -311,5 +312,39 @@ describe('Client', () => {
     const client = getCient();
 
     expect(await client.getOrders('BTCUSD')).toEqual(result);
+  });
+
+  it('getTickers()', async () => {
+    const result: TickersResponse = {
+      "tickers": [
+        {
+          "currencyPair": "BTCEUR",
+          "open": 1,
+          "last": 0.1,
+          "lastQ": 1,
+          "high": 1,
+          "low": 0.1,
+          "volume": 9,
+          "volumn": 9,
+          "bid": 0,
+          "bidQ": 0,
+          "ask": 0,
+          "askQ": 0,
+          "vwap": 0.7,
+          "createDateTime": "1533054236"
+        }
+      ],
+      "responseStatus": {
+        "message": "OK"
+      }
+    };
+
+    nock('http://api.com')
+      .get('/Public/LiveTicker')
+      .reply(200, result);
+
+    const client = getCient();
+
+    expect(await client.getTickers()).toEqual(result);
   });
 });

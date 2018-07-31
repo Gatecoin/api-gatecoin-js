@@ -11,6 +11,7 @@ import {
   CancelOrderResponse,
   CancelOrdersResponse,
   OrdersResponse,
+  TickersResponse,
 } from './model';
 import {request} from './http';
 
@@ -126,6 +127,15 @@ class Client {
    */
   async getOrders(pair: string) {
     return this.request<OrdersResponse>('GET', `/Trade/Orders`, {currencyPair: pair});
+  }
+
+  /**
+   * Get live ticker for all currency.
+   *
+   * @returns {Promise<TickersResponse>}
+   */
+  async getTickers() {
+    return this.request<TickersResponse>('GET', `/Public/LiveTicker`);
   }
 
   private async request<T extends Response>(method: string, path: string, query?: Object, body?: Object): Promise<T> {

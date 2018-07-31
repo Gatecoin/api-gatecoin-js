@@ -100,6 +100,27 @@ interface OrdersResponse extends Response {
   orders: Array<Order>;
 }
 
+interface Ticker {
+  currencyPair: string;
+  open: number;
+  last: number;
+  lastQ: number;
+  high: number;
+  low: number;
+  volume: number;
+  volumn: number;
+  bid: number;
+  bidQ: number;
+  ask: number;
+  askQ: number;
+  vwap: number;
+  createDateTime: string;
+}
+
+interface TickersResponse extends Response {
+  tickers: Array<Ticker>;
+}
+
 interface Response {
   responseStatus: ResponseStatus;
 }
@@ -133,4 +154,6 @@ export {
   CancelOrderResponse,
   CancelOrdersResponse,
   OrdersResponse,
+  Ticker,
+  TickersResponse,
 }
