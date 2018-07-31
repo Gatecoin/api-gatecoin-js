@@ -8,6 +8,7 @@ import {
   Response,
   FieldError,
   OrderResponse,
+  CancelOrderResponse,
 } from './model';
 import {request} from './http';
 
@@ -45,7 +46,7 @@ class Client {
    * @returns {Promise<MarketDepthResponse>}
    */
   async getOrderBook(pair: string) {
-    return this.request<MarketDepthResponse>(`/${pair}/OrderBook`);
+    return this.request<MarketDepthResponse>('GET', `/${pair}/OrderBook`);
   }
 
   /**
@@ -54,7 +55,7 @@ class Client {
    * @returns {Promise<BalancesResponse>}
    */
   async getBalances() {
-    return this.request<BalancesResponse>(`/Balance/Balances`);
+    return this.request<BalancesResponse>('GET', `/Balance/Balances`);
   }
 
   /**
@@ -64,7 +65,7 @@ class Client {
    * @returns {Promise<TransactionsResponse>}
    */
   async getTrades(pair: string) {
-    return this.request<TradesResponse>(`/${pair}/Trades`);
+    return this.request<TradesResponse>('GET', `/${pair}/Trades`);
   }
 
   /**
@@ -74,7 +75,7 @@ class Client {
    * @returns {Promise<BalanceResponse>}
    */
   async getBalance(currency: string) {
-    return this.request<BalanceResponse>(`/Balance/Balances/${currency}`);
+    return this.request<BalanceResponse>('GET', `/Balance/Balances/${currency}`);
   }
 
   /**
@@ -83,7 +84,7 @@ class Client {
    * @param order
    */
   async placeOrder(order: OrderParams) {
-    return this.request<PlaceOrderResponse>(`/Trade/Orders`, order, order);
+    return this.request<PlaceOrderResponse>('POST', `/Trade/Orders`, order, order);
   }
 
   /**
@@ -93,13 +94,23 @@ class Client {
    * @returns {Promise<OrderResponse>}
    */
   async getOrder(orderId: string) {
-    return this.request<OrderResponse>(`/Trade/Orders/${orderId}`);
+    return this.request<OrderResponse>('GET', `/Trade/Orders/${orderId}`);
   }
 
-  private async request<T extends Response>(path: string, query?: Object, body?: Object): Promise<T> {
+  /**
+   * Cancels an existing order.
+   *
+   * @param {string} orderId
+   * @returns {Promise<CancelOrderResponse>}
+   */
+  async cancelOrder(orderId: string) {
+    return this.request<CancelOrderResponse>('DELETE', `/Trade/Orders/${orderId}`);
+  }
+
+  private async request<T extends Response>(method: string, path: string, query?: Object, body?: Object): Promise<T> {
     const {baseUrl, privateKey, publicKey, fetch} = this.options;
 
-    const result = await request<T>(fetch, baseUrl + path, {privateKey, publicKey}, query, body);
+    const result = await request<T>(fetch, method, baseUrl + path, {privateKey, publicKey}, query, body);
 
     const {responseStatus} = result;
     if (responseStatus && responseStatus.errorCode) {

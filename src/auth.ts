@@ -8,7 +8,7 @@ interface Signature {
 }
 
 const sign = (url: string, verb: string, publicKey: string, privateKey: string, now: string): Signature => {
-  const contentType = (verb.toLowerCase() === 'get') ? '' : 'application/json';
+  const contentType = (verb.toLowerCase() === 'post') ? 'application/json' : '';
   const messageToSign = (verb + url + contentType + now).toLowerCase();
 
   const signature = hmacsha256(messageToSign, privateKey);

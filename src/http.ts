@@ -1,10 +1,16 @@
 import {sign} from './auth';
 import {stringify} from 'query-string';
 
-const request = async <T>(fetchImpl: any, url: string, auth: {publicKey: string, privateKey: string}, query?: Object, body?: Object): Promise<T> => {
-  const fullUrl = url + ((query) ? '?' + stringify(query) : '');
+const request = async <T>(
+  fetchImpl: any,
+  method: string,
+  url: string,
+  auth: {publicKey: string, privateKey: string},
+  query?: Object,
+  body?: Object
+): Promise<T> => {
 
-  const method = (body) ? 'POST' : 'GET';
+  const fullUrl = url + ((query) ? '?' + stringify(query) : '');
 
   const signature = sign(fullUrl, method, auth.publicKey, auth.privateKey, String(Date.now() / 1000));
 
