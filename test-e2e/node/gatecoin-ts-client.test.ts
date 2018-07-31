@@ -44,6 +44,10 @@ describe('Client', () => {
     expect(typeof response.clOrderId).toEqual('string');
     expect(response.responseStatus.message).toEqual('OK');
 
-    // @todo: delete order
+    const deleteResponse = await client.cancelOrder(response.clOrderId);
+    expect(deleteResponse.responseStatus.message).toEqual('OK');
+
+    const orderResponse = await client.getOrder(response.clOrderId);
+    expect(orderResponse.order.statusDesc).toEqual('Cancelled');
   });
 });

@@ -90,6 +90,12 @@ interface TraderTransaction {
   feeAmount: number;
 }
 
+interface CancelOrderResponse extends Response {
+}
+
+interface CancelAllOrdersResponse extends Response {
+}
+
 interface Response {
   responseStatus: ResponseStatus;
 }
@@ -120,4 +126,6 @@ export {
   OrderResponse,
   Order,
   TraderTransaction,
+  CancelOrderResponse,
+  CancelAllOrdersResponse,
 }

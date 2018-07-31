@@ -20,5 +20,12 @@ describe('auth', () => {
       signature: '6GfPeR8slSPQlyvCQF04NBe6ymtO2HDPrbAYtP/n2q4=',
       now: '1532540803.513'
     });
+
+    const signatureDelete = sign(url, 'DELETE', publicKey, privateKey, now);
+    expect(signatureDelete).toEqual({
+      publicKey: 'bvM7ViP498BHdC3oFdRHM8WWjRFd32JS',
+      signature: '8kt6grrztPEiHCcQQ1X+h9fIaYWPqKCpo/oDbylX6vE=',
+      now: '1532540803.513'
+    });
   });
 });
