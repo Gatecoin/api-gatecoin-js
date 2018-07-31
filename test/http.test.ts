@@ -12,6 +12,7 @@ describe('request()', () => {
     try {
       await request(
         fetch,
+        'GET',
         'http://api.com/BTCEUR/OrderBook',
         {privateKey: '', publicKey: ''}
       );
