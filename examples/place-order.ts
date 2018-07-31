@@ -18,6 +18,15 @@ const main = async () => {
   // check order status
   const orderResponse = await client.getOrder(response.clOrderId);
   console.log(orderResponse.order.statusDesc);
+
+  // place a limit sell order
+  const sellResponse = await client.placeOrder({
+    code: 'BTCEUR',
+    way: Way.Ask,
+    amount: 1,
+    price: 11000
+  });
+  console.log(sellResponse);
 };
 
 main();
