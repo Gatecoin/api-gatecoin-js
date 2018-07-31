@@ -1,4 +1,4 @@
-import Client, {Way} from '../src/node-client';
+import Client from '../src/node-client';
 
 const main = async () => {
   const client = new Client({
