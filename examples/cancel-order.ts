@@ -18,6 +18,10 @@ const main = async () => {
   // cancel order
   const cancelResponse = await client.cancelOrder(response.clOrderId);
   console.log(cancelResponse)
+
+  // cancel all orders
+  const cancelAllResponse = await client.cancelAllOrders();
+  console.log(cancelAllResponse)
 };
 
 main();

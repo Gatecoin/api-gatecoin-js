@@ -7,6 +7,7 @@ import Client, {
   GatecoinError,
   OrderResponse,
   CancelOrderResponse,
+  CancelAllOrdersResponse,
 } from '../src/node-client';
 import nock from 'nock';
 import {PlaceOrderResponse} from "../src/model";
@@ -262,5 +263,21 @@ describe('Client', () => {
     const client = getCient();
 
     expect(await client.cancelOrder('BK11502639796')).toEqual(result);
+  });
+
+  it('cancelAllOrders()', async () => {
+    const result: CancelAllOrdersResponse = {
+      "responseStatus": {
+        "message": "OK"
+      }
+    };
+
+    nock('http://api.com')
+      .delete('/Trade/Orders')
+      .reply(200, result);
+
+    const client = getCient();
+
+    expect(await client.cancelAllOrders()).toEqual(result);
   });
 });
