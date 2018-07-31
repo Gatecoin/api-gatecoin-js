@@ -26,6 +26,20 @@ console.log(response);
 
 Check out the [examples](examples) for hints on implementing common use-case scenarios.
 
+### IE11 support
+
+To use this library in IE11 you'll need to install a couple of polyfills.
+
+`npm i core-js whatwg-fetch --save`
+
+Add them to your project before including the library.
+
+```js
+import 'core-js/es6/promise';
+import 'core-js/es6/object';
+import 'whatwg-fetch';
+```
+
 ## Development
 
 ### Unit tests
