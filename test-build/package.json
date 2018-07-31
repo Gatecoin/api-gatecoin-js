@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "core-js": "2.5.7",
     "envalid": "4.1.4",
     "gatecoin-ts-client-dev": "0.0.0",
     "rollup": "0.63.4",
@@ -20,6 +21,7 @@
     "rollup-plugin-replace": "2.0.0",
     "rollup-plugin-serve": "0.4.2",
     "rollup-plugin-typescript2": "0.16.1",
-    "typescript": "2.9.2"
+    "typescript": "2.9.2",
+    "whatwg-fetch": "2.0.4"
   }
 }
