@@ -10,6 +10,7 @@ import {
   OrderResponse,
   CancelOrderResponse,
   CancelOrdersResponse,
+  OrdersResponse,
 } from './model';
 import {request} from './http';
 
@@ -115,6 +116,16 @@ class Client {
    */
   async cancelOrders() {
     return this.request<CancelOrdersResponse>('DELETE', `/Trade/Orders`);
+  }
+
+  /**
+   * Gets open orders for the logged in trader.
+   *
+   * @param {string} pair
+   * @returns {Promise<OrdersResponse>}
+   */
+  async getOrders(pair: string) {
+    return this.request<OrdersResponse>('GET', `/Trade/Orders`, {currencyPair: pair});
   }
 
   private async request<T extends Response>(method: string, path: string, query?: Object, body?: Object): Promise<T> {

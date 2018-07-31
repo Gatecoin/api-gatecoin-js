@@ -73,7 +73,7 @@ interface Order {
   tranSeqNo: number;
   type: number;
   date: string;
-  trades: Array<TraderTransaction>;
+  trades?: Array<TraderTransaction>;
 }
 
 interface TraderTransaction {
@@ -94,6 +94,10 @@ interface CancelOrderResponse extends Response {
 }
 
 interface CancelOrdersResponse extends Response {
+}
+
+interface OrdersResponse extends Response {
+  orders: Array<Order>;
 }
 
 interface Response {
@@ -128,4 +132,5 @@ export {
   TraderTransaction,
   CancelOrderResponse,
   CancelOrdersResponse,
+  OrdersResponse,
 }

@@ -8,6 +8,7 @@ import Client, {
   OrderResponse,
   CancelOrderResponse,
   CancelOrdersResponse,
+  OrdersResponse,
 } from '../src/node-client';
 import nock from 'nock';
 import {PlaceOrderResponse} from "../src/model";
@@ -279,5 +280,36 @@ describe('Client', () => {
     const client = getCient();
 
     expect(await client.cancelOrders()).toEqual(result);
+  });
+
+  it('getOrders()', async () => {
+    const result: OrdersResponse = {
+      "orders": [
+        {
+          "code": "BTCUSD",
+          "clOrderId": "BK11502752303",
+          "side": 0,
+          "price": 1000,
+          "initialQuantity": 1,
+          "remainingQuantity": 1,
+          "status": 1,
+          "statusDesc": "New",
+          "tranSeqNo": 0,
+          "type": 0,
+          "date": "1533053746"
+        }
+      ],
+      "responseStatus": {
+        "message": "OK"
+      }
+    };
+
+    nock('http://api.com')
+      .get('/Trade/Orders?currencyPair=BTCUSD')
+      .reply(200, result);
+
+    const client = getCient();
+
+    expect(await client.getOrders('BTCUSD')).toEqual(result);
   });
 });
