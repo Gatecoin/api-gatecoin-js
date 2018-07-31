@@ -20,7 +20,7 @@ const main = async () => {
   console.log(cancelResponse)
 
   // cancel all orders
-  const cancelAllResponse = await client.cancelAllOrders();
+  const cancelAllResponse = await client.cancelOrders();
   console.log(cancelAllResponse)
 };
 

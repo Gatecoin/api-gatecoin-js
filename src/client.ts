@@ -9,7 +9,7 @@ import {
   FieldError,
   OrderResponse,
   CancelOrderResponse,
-  CancelAllOrdersResponse,
+  CancelOrdersResponse,
 } from './model';
 import {request} from './http';
 
@@ -111,10 +111,10 @@ class Client {
   /**
    * Cancels all existing orders.
    *
-   * @returns {Promise<CancelAllOrdersResponse>}
+   * @returns {Promise<CancelOrdersResponse>}
    */
-  async cancelAllOrders() {
-    return this.request<CancelAllOrdersResponse>('DELETE', `/Trade/Orders`);
+  async cancelOrders() {
+    return this.request<CancelOrdersResponse>('DELETE', `/Trade/Orders`);
   }
 
   private async request<T extends Response>(method: string, path: string, query?: Object, body?: Object): Promise<T> {
