@@ -14,6 +14,10 @@ const main = async () => {
     price: 10000
   });
   console.log(response);
+
+  // check order status
+  const orderResponse = await client.getOrder(response.clOrderId);
+  console.log(orderResponse.order.statusDesc);
 };
 
 main();
