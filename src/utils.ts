@@ -25,6 +25,10 @@ const orderBookLeg = (orderBook: OrderBook, volume: number, way: Way): number =>
   let limits = (way === Way.Ask) ? orderBook.bids : orderBook.asks;
   limits = limits.sort(compareLimits);
 
+  if (way === Way.Ask) {
+    limits = limits.reverse();
+  }
+
   let currentVolume = 0;
   let result = 0;
   for (let i in limits) {
