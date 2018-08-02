@@ -16,6 +16,7 @@ import {
   TransactionsResponse,
 } from './model';
 import {request} from './http';
+import {filterLimits} from './trading';
 
 interface ClientOptions {
   baseUrl?: string;
@@ -48,10 +49,16 @@ class Client {
    * Gets prices and market depth for the currency pair.
    *
    * @param {string} pair
+   * @param {number} total
+   * @param {number} volume
    * @returns {Promise<MarketDepthResponse>}
    */
-  async getOrderBook(pair: string) {
-    return this.request<MarketDepthResponse>('GET', `/${pair}/OrderBook`);
+  async getOrderBook(pair: string, total?: number, volume?: number) {
+    const response = await this.request<MarketDepthResponse>('GET', `/${pair}/OrderBook`);
+    response.bids = filterLimits(response.bids, total, volume);
+    response.asks = filterLimits(response.bids, total, volume);
+
+    return response;
   }
 
   /**
