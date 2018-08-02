@@ -2,7 +2,7 @@ import Client, {
   MarketDepthResponse,
   BalancesResponse,
   BalanceResponse,
-  TradesResponse,
+  TransactionsResponse,
   Way,
   GatecoinError,
   OrderResponse,
@@ -10,9 +10,10 @@ import Client, {
   CancelOrdersResponse,
   OrdersResponse,
   TickersResponse,
+  PlaceOrderResponse,
+  TradeHistoryResponse,
 } from '../src/node-client';
 import nock from 'nock';
-import {PlaceOrderResponse} from "../src/model";
 
 const getCient = () => new Client({
   baseUrl: 'http://api.com',
@@ -167,20 +168,45 @@ describe('Client', () => {
     expect(await client.getBalance('USD')).toEqual(result);
   });
 
-  it('getTrades()', async () => {
-    const result: TradesResponse = {
-      "response": [
+  it('getTransactionHistory()', async () => {
+    const result: TransactionsResponse = {
+      "transactions": [
         {
-          "tid": 5281383,
-          "price": 8278.4,
-          "amount": 0.11,
-          "date": "1532597624"
-        },
+          "transactionId": 4734055,
+          "transactionTime": "1524815079",
+          "price": 3,
+          "quantity": 1
+        }
+      ],
+      "responseStatus": {
+        "message": "OK"
+      }
+    };
+
+    nock('http://api.com')
+      .get('/Public/TransactionsHistory/BTCEUR?count=1&transactionId=2')
+      .reply(200, result);
+
+    const client = getCient();
+
+    expect(await client.getTransactionHistory(  'BTCEUR', 1, 2)).toEqual(result);
+  });
+
+  it('getTradeHistory()', async () => {
+    const result: TradeHistoryResponse = {
+      "trades": [
         {
-          "tid": 5281386,
-          "price": 8278.4,
-          "amount": 0.12,
-          "date": "1532597658"
+          "transactionId": 5341853,
+          "transactionTime": "1533051203",
+          "askOrderID": "BK11502749589",
+          "bidOrderID": "BK11502637876",
+          "price": 0.1,
+          "quantity": 1,
+          "currencyPair": "BTCEUR",
+          "way": "Ask" as Way,
+          "feeRole": "taker",
+          "feeRate": 0.0035,
+          "feeAmount": 0.00035
         },
       ],
       "responseStatus": {
@@ -189,12 +215,15 @@ describe('Client', () => {
     };
 
     nock('http://api.com')
-      .get('/BTCEUR/Trades')
+      .get('/Trade/TradeHistory?currencyPair=BTCEUR&orderByEarliest=true')
       .reply(200, result);
 
     const client = getCient();
 
-    expect(await client.getTrades(  'BTCEUR')).toEqual(result);
+    expect(await client.getTradeHistory({
+      currencyPair: 'BTCEUR',
+      orderByEarliest: true,
+    })).toEqual(result);
   });
 
   it('placeOrder()', async () => {

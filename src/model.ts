@@ -27,15 +27,31 @@ interface AccountBalance {
   isDigital: boolean;
 }
 
-interface TradesResponse extends Response{
-  response: Array<Trade>;
+interface TradeHistoryResponse extends Response{
+  trades: Array<TraderTransaction>;
 }
 
-interface Trade {
-  tid: number;
-  amount: number;
+interface TradeHistoryParams {
+  currencyPair: string;
+  beforeId?: string;
+  afterId?: string;
+  page?: number;
+  orderByEarliest?: boolean;
+}
+
+interface TransactionsResponse extends Response {
+  transactions: Array<Transaction>;
+}
+
+interface Transaction {
+  transactionId: number;
+  transactionTime: string;
   price: number;
-  date: string;
+  quantity: number;
+  currencyPair?: number;
+  way?: string;
+  askOrderId?: string;
+  bidOrderId?: string;
 }
 
 enum Way {
@@ -143,7 +159,9 @@ export {
   BalancesResponse,
   BalanceResponse,
   OrderParams,
-  TradesResponse,
+  TradeHistoryResponse,
+  TradeHistoryParams,
+  TransactionsResponse,
   PlaceOrderResponse,
   Way,
   Response,

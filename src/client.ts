@@ -2,7 +2,7 @@ import {
   MarketDepthResponse,
   BalancesResponse,
   BalanceResponse,
-  TradesResponse,
+  TradeHistoryResponse,
   OrderParams,
   PlaceOrderResponse,
   Response,
@@ -12,6 +12,8 @@ import {
   CancelOrdersResponse,
   OrdersResponse,
   TickersResponse,
+  TradeHistoryParams,
+  TransactionsResponse,
 } from './model';
 import {request} from './http';
 
@@ -62,13 +64,28 @@ class Client {
   }
 
   /**
-   * Gets all transactions for the given pair.
+   * Gets all transactions for the given currency pair.
    *
    * @param {string} pair
+   * @param {number} count
+   * @param {number} transactionId
    * @returns {Promise<TransactionsResponse>}
    */
-  async getTrades(pair: string) {
-    return this.request<TradesResponse>('GET', `/${pair}/Trades`);
+  async getTransactionHistory(pair: string, count?: number, transactionId?: number) {
+    return this.request<TransactionsResponse>('GET', `/Public/TransactionsHistory/${pair}`, {
+      count,
+      transactionId
+    });
+  }
+
+  /**
+   * Gets all trade history of the logged in user.
+   *
+   * @param {TradeHistoryParams} params
+   * @returns {Promise<TradeHistoryResponse>}
+   */
+  async getTradeHistory(params: TradeHistoryParams) {
+    return this.request<TradeHistoryResponse>('GET', `/Trade/TradeHistory`, params);
   }
 
   /**
