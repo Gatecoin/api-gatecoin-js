@@ -149,7 +149,7 @@ class Client {
    * @param {string} pair
    * @returns {Promise<OrdersResponse>}
    */
-  async getOrders(pair: string) {
+  async getOrders(pair?: string) {
     return this.request<OrdersResponse>('GET', `/Trade/Orders`, {currencyPair: pair});
   }
 

@@ -9,6 +9,10 @@ const main = async () => {
   // get my open orders for the BTC/EUR pair
   const response = await client.getOrders('BTCEUR');
   console.log(response);
+
+  // get all of my open orders
+  const allOrdersResponse = await client.getOrders();
+  console.log(allOrdersResponse);
 };
 
 main();
