@@ -1,9 +1,29 @@
-import {OrderBook, Way} from './model';
+import {OrderBook, Way, Limit} from './model';
+
+/**
+ * These functions are public for the consumers of the library.
+ */
+
+const compareLimits = (a: Limit, b: Limit) => {
+  const priceA = a.price / a.volume;
+  const priceB = b.price / b.volume;
+
+  if (priceA < priceB) {
+    return -1;
+  }
+
+  if (priceA > priceB) {
+    return 1;
+  }
+
+  return 0;
+};
 
 // @todo: export
 // @todo: example
 const orderBookLeg = (orderBook: OrderBook, volume: number, way: Way): number => {
-  const limits = (way === Way.Ask) ? orderBook.bids : orderBook.asks;
+  let limits = (way === Way.Ask) ? orderBook.bids : orderBook.asks;
+  limits = limits.sort(compareLimits);
 
   let currentVolume = 0;
   let result = 0;
