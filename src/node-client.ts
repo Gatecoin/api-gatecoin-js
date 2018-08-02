@@ -11,3 +11,4 @@ class NodeClient extends Client {
 
 export default NodeClient;
 export * from './client';
+export * from './utils';

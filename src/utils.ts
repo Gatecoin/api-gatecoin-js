@@ -19,8 +19,6 @@ const compareLimits = (a: Limit, b: Limit) => {
   return 0;
 };
 
-// @todo: export
-// @todo: example
 const orderBookLeg = (orderBook: OrderBook, volume: number, way: Way): number => {
   let limits = (way === Way.Ask) ? orderBook.bids : orderBook.asks;
   limits = limits.sort(compareLimits);
