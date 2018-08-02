@@ -3,6 +3,11 @@ interface MarketDepthResponse extends Response {
   bids: Array<Limit>;
 }
 
+interface OrderBook {
+  asks: Array<Limit>;
+  bids: Array<Limit>;
+}
+
 interface Limit {
   price: number;
   volume: number;
@@ -174,4 +179,5 @@ export {
   OrdersResponse,
   Ticker,
   TickersResponse,
+  OrderBook,
 }
