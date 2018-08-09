@@ -2,9 +2,10 @@ import Client, {Way} from '../src/node-client';
 
 const main = async () => {
   const client = new Client({
-    baseUrl: 'https://api.gtcprojects.com/v1',
-    publicKey: 'bvM7ViP498BHdC3oFdRHM8WWjRFd32JS',
-    privateKey: 'F72D5F953F208647DDAF146DD4CD402F',
+    credentials: {
+      publicKey: 'your public key',
+      privateKey: 'your private key',
+    }
   });
 
   // place a limit buy order for BTC

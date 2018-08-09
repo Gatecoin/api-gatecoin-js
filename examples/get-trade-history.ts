@@ -2,8 +2,10 @@ import Client from '../src/node-client';
 
 const main = async () => {
   const client = new Client({
-    publicKey: 'your public key',
-    privateKey: 'your private key',
+    credentials: {
+      publicKey: 'your public key',
+      privateKey: 'your private key',
+    }
   });
 
   // get transaction history for the BTC/EUR pair

@@ -5,23 +5,27 @@ const request = async <T>(
   fetchImpl: any,
   method: string,
   url: string,
-  auth: {publicKey: string, privateKey: string},
+  auth?: {publicKey: string, privateKey: string},
   query?: Object,
   body?: Object
 ): Promise<T> => {
 
   const fullUrl = url + ((query) ? '?' + stringify(query) : '');
 
-  const signature = sign(fullUrl, method, auth.publicKey, auth.privateKey, String(Date.now() / 1000));
-
   const options: any = {
     method,
-    headers: {
+    headers: {},
+  };
+
+  if (auth) {
+    const signature = sign(fullUrl, method, auth.publicKey, auth.privateKey, String(Date.now() / 1000));
+
+    options.headers = {
       'api_public_key': signature.publicKey,
       'api_request_signature': signature.signature,
       'api_request_date': signature.now,
-    },
-  };
+    };
+  }
 
   if (body) {
     options.body = JSON.stringify(body);

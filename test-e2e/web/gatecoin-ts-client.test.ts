@@ -7,8 +7,6 @@ describe('Client', () => {
     const env = (window as any).__env__;
     const client = new Client({
       baseUrl: env.E2E_TEST_URL as string,
-      publicKey: env.E2E_TEST_PUBLIC_KEY as string,
-      privateKey: env.E2E_TEST_PRIVATE_KEY as string,
     });
 
     const response = await client.getOrderBook('BTCEUR');
@@ -20,8 +18,10 @@ describe('Client', () => {
     const env = (window as any).__env__;
     const client = new Client({
       baseUrl: env.E2E_TEST_URL as string,
-      publicKey: env.E2E_TEST_PUBLIC_KEY as string,
-      privateKey: env.E2E_TEST_PRIVATE_KEY as string,
+      credentials: {
+        publicKey: env.E2E_TEST_PUBLIC_KEY as string,
+        privateKey: env.E2E_TEST_PRIVATE_KEY as string,
+      }
     });
 
     const response = await client.getBalances();
@@ -33,8 +33,10 @@ describe('Client', () => {
     const env = (window as any).__env__;
     const client = new Client({
       baseUrl: env.E2E_TEST_URL as string,
-      publicKey: env.E2E_TEST_PUBLIC_KEY as string,
-      privateKey: env.E2E_TEST_PRIVATE_KEY as string,
+      credentials: {
+        publicKey: env.E2E_TEST_PUBLIC_KEY as string,
+        privateKey: env.E2E_TEST_PRIVATE_KEY as string,
+      }
     });
 
     const response = await client.placeOrder({
@@ -43,7 +45,6 @@ describe('Client', () => {
       amount: 1,
       price: 0.1
     });
-    console.log(response);
 
     expect(typeof response.clOrderId).toEqual('string');
     expect(response.responseStatus.message).toEqual('OK');

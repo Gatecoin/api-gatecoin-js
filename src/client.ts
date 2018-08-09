@@ -20,9 +20,13 @@ import {filterLimits} from './trading';
 
 interface ClientOptions {
   baseUrl?: string;
+  credentials?: Credentials,
+  fetch?: any;
+}
+
+interface Credentials {
   publicKey: string;
   privateKey: string;
-  fetch?: any;
 }
 
 class GatecoinError {
@@ -32,7 +36,7 @@ class GatecoinError {
 class Client {
   private options: ClientOptions;
 
-  constructor(options: ClientOptions) {
+  constructor(options: ClientOptions = {}) {
     const defaultOptions: Partial<ClientOptions> = {
       baseUrl: 'https://api.gatecoin.com/v1',
     };
@@ -163,9 +167,9 @@ class Client {
   }
 
   private async request<T extends Response>(method: string, path: string, query?: Object, body?: Object): Promise<T> {
-    const {baseUrl, privateKey, publicKey, fetch} = this.options;
+    const {baseUrl, credentials, fetch} = this.options;
 
-    const result = await request<T>(fetch, method, baseUrl + path, {privateKey, publicKey}, query, body);
+    const result = await request<T>(fetch, method, baseUrl + path, credentials, query, body);
 
     const {responseStatus} = result;
     if (responseStatus && responseStatus.errorCode) {

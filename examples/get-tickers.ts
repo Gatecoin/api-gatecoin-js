@@ -1,10 +1,7 @@
 import Client from '../src/node-client';
 
 const main = async () => {
-  const client = new Client({
-    publicKey: 'your public key',
-    privateKey: 'your private key',
-  });
+  const client = new Client();
 
   // get tickers for all currency
   const response = await client.getTickers();

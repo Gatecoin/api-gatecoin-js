@@ -17,8 +17,6 @@ import nock from 'nock';
 
 const getCient = () => new Client({
   baseUrl: 'http://api.com',
-  publicKey: '',
-  privateKey: '',
 });
 
 describe('Client', () => {
@@ -35,10 +33,7 @@ describe('Client', () => {
       .get('/BTCEUR/OrderBook')
       .reply(200, result);
 
-    const client = new Client({
-      publicKey: '',
-      privateKey: '',
-    });
+    const client = new Client();
 
     expect(await client.getOrderBook('BTCEUR')).toEqual(result);
   });
