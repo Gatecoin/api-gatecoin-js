@@ -11,7 +11,7 @@ const main = async () => {
     code: 'BTCEUR',
     way: Way.Bid,
     amount: 1,
-    price: 10000
+    price: 10
   });
   console.log(response);
 
@@ -24,4 +24,8 @@ const main = async () => {
   console.log(cancelAllResponse)
 };
 
-main();
+main().catch(e => {
+  console.error(e);
+  process.exit(1);
+});
+

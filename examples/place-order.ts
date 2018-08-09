@@ -2,8 +2,9 @@ import Client, {Way} from '../src/node-client';
 
 const main = async () => {
   const client = new Client({
-    publicKey: 'your public key',
-    privateKey: 'your private key',
+    baseUrl: 'https://api.gtcprojects.com/v1',
+    publicKey: 'bvM7ViP498BHdC3oFdRHM8WWjRFd32JS',
+    privateKey: 'F72D5F953F208647DDAF146DD4CD402F',
   });
 
   // place a limit buy order for BTC
@@ -11,7 +12,7 @@ const main = async () => {
     code: 'BTCEUR',
     way: Way.Bid,
     amount: 1,
-    price: 10000
+    price: 10
   });
   console.log(response);
 
@@ -24,7 +25,7 @@ const main = async () => {
     code: 'BTCEUR',
     way: Way.Ask,
     amount: 1,
-    price: 11000
+    price: 20
   });
   console.log(sellResponse);
 
@@ -45,4 +46,8 @@ const main = async () => {
   console.log(marketSellResponse);
 };
 
-main();
+main().catch(e => {
+  console.error(e);
+  process.exit(1);
+});
+

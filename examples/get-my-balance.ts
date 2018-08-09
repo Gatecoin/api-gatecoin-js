@@ -15,4 +15,7 @@ const main = async () => {
   console.log(usdBalanceResponse);
 };
 
-main();
+main().catch(e => {
+  console.error(e);
+  process.exit(1);
+});

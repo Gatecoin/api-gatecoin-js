@@ -17,4 +17,8 @@ const main = async () => {
   console.log(tradeHistoryResponse);
 };
 
-main();
+main().catch(e => {
+  console.error(e);
+  process.exit(1);
+});
+

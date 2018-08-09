@@ -15,4 +15,8 @@ const main = async () => {
   console.log(allOrdersResponse);
 };
 
-main();
+main().catch(e => {
+  console.error(e);
+  process.exit(1);
+});
+

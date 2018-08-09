@@ -26,6 +26,12 @@ console.log(response);
 
 Check out the [examples](examples) for hints on implementing common use-case scenarios.
 
+You can execute the examples by compiling them and running them with `node`:
+```bash
+npm run build
+node dist/lib/examples/get-tickers.js
+```
+
 ### IE11 support
 
 To use this library in IE11 you'll need to install a couple of polyfills.
