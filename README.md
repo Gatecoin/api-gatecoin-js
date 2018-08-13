@@ -32,6 +32,14 @@ npm run build
 node dist/examples/examples/get-tickers.js
 ```
 
+Before running the examples, create a `.env` file in the root folder with the following values:
+                            
+```
+BASE_URL=https://api.gtcprojects.com/v1
+PUBLIC_KEY=your public key
+PRIVATE_KEY=your private key
+```
+
 ### IE11 support
 
 To use this library in IE11 you'll need to install a couple of polyfills.
