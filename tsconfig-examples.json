@@ -5,7 +5,8 @@
     "declaration": false,
     "declarationDir": null,
     "outDir": "dist/examples",
-    "module": "commonjs"
+    "module": "commonjs",
+    "esModuleInterop": true
   },
   "include": [
     "examples"
