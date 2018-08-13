@@ -29,7 +29,7 @@ Check out the [examples](examples) for hints on implementing common use-case sce
 You can execute the examples by compiling them and running them with `node`:
 ```bash
 npm run build
-node dist/lib/examples/get-tickers.js
+node dist/examples/examples/get-tickers.js
 ```
 
 ### IE11 support

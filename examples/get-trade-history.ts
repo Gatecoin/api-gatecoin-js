@@ -1,10 +1,12 @@
 import Client from '../src/node-client';
+import '../env';
 
 const main = async () => {
   const client = new Client({
+    baseUrl: process.env.E2E_TEST_URL,
     credentials: {
-      publicKey: 'your public key',
-      privateKey: 'your private key',
+      publicKey: process.env.E2E_TEST_PUBLIC_KEY as string,
+      privateKey: process.env.E2E_TEST_PRIVATE_KEY as string,
     }
   });
 

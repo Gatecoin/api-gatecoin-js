@@ -10,7 +10,7 @@
     "js"
   ],
   "setupFiles": [
-    "./test-e2e/env"
+    "./env"
   ],
   "testEnvironment": "node"
 }

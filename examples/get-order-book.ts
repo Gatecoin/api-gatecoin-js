@@ -1,7 +1,10 @@
 import Client, {orderBookLeg, Way} from '../src/node-client';
+import '../env';
 
 const main = async () => {
-  const client = new Client();
+  const client = new Client({
+    baseUrl: process.env.E2E_TEST_URL,
+  });
 
   // get order book for the BTC/EUR pair
   const response = await client.getOrderBook('BTCEUR');

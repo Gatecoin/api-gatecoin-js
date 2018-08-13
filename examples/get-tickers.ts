@@ -1,7 +1,10 @@
 import Client from '../src/node-client';
+import '../env';
 
 const main = async () => {
-  const client = new Client();
+  const client = new Client({
+    baseUrl: process.env.E2E_TEST_URL,
+  });
 
   // get tickers for all currency
   const response = await client.getTickers();
