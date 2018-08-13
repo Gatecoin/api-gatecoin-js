@@ -13,7 +13,7 @@
   "dependencies": {
     "core-js": "2.5.7",
     "envalid": "4.1.4",
-    "gatecoin-ts-client-dev": "0.0.0",
+    "gatecoin-api-v1": "0.0.0",
     "rollup": "0.63.4",
     "rollup-plugin-commonjs": "9.1.3",
     "rollup-plugin-json": "3.0.0",

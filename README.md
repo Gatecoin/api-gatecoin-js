@@ -6,12 +6,12 @@ A Gatecoint API client for browser and Node.js.
 
 Install library 
 
-```npm i gatecoin-ts-client-dev --save```
+```npm i gatecoin-api-v1 --save```
 
 Create an instance of the client and use it in your code:
 
 ```js
-import Client from "gatecoin-ts-client-dev";
+import Client from "gatecoin-api-v1";
 
 const client = new Client({
   publicKey: 'your public key',
@@ -85,7 +85,7 @@ npm link
 ```bash
 cd test-build
 npm i
-npm link gatecoin-ts-client-dev
+npm link gatecoin-api-v1
 ```
 
 3. To test the Node.js build run `npm run test-node`.
