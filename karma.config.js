@@ -19,9 +19,9 @@ module.exports = function(config) {
     singleRun: true,
     concurrency: Infinity,
     envPreprocessor: [
-      'E2E_TEST_URL',
-      'E2E_TEST_PUBLIC_KEY',
-      'E2E_TEST_PRIVATE_KEY',
+      'BASE_URL',
+      'PUBLIC_KEY',
+      'PRIVATE_KEY',
     ],
     karmaTypescriptConfig: {
       compilerOptions: {

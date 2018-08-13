@@ -3,7 +3,7 @@ import '../env';
 
 const main = async () => {
   const client = new Client({
-    baseUrl: process.env.E2E_TEST_URL,
+    baseUrl: process.env.BASE_URL,
   });
 
   // get order book for the BTC/EUR pair

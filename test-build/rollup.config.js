@@ -24,9 +24,9 @@ export default {
     }),
     commonjs(),
     replace({
-      'process.env.E2E_TEST_URL': JSON.stringify( process.env.E2E_TEST_URL ),
-      'process.env.E2E_TEST_PUBLIC_KEY': JSON.stringify( process.env.E2E_TEST_PUBLIC_KEY ),
-      'process.env.E2E_TEST_PRIVATE_KEY': JSON.stringify( process.env.E2E_TEST_PRIVATE_KEY ),
+      'process.env.BASE_URL': JSON.stringify( process.env.BASE_URL ),
+      'process.env.PUBLIC_KEY': JSON.stringify( process.env.PUBLIC_KEY ),
+      'process.env.PRIVATE_KEY': JSON.stringify( process.env.PRIVATE_KEY ),
     }),
     serve({
       contentBase: ['dist', 'web'],

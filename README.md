@@ -62,9 +62,9 @@ To run end-to-end tests:
 1. Create a `.env` file in the root folder with the following values:
 
 ```
-E2E_TEST_URL=https://api.gtcprojects.com/v1
-E2E_TEST_PUBLIC_KEY=your public key
-E2E_TEST_PRIVATE_KEY=your private key
+BASE_URL=https://api.gtcprojects.com/v1
+PUBLIC_KEY=your public key
+PRIVATE_KEY=your private key
 ```
 
 2. Run `npm run test:e2e`

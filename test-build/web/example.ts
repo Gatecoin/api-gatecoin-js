@@ -6,10 +6,10 @@ import Client from "gatecoin-api-v1";
 
 const main = async () => {
   const client = new Client({
-    baseUrl: process.env.E2E_TEST_URL as string,
+    baseUrl: process.env.BASE_URL as string,
     credentials: {
-      publicKey: process.env.E2E_TEST_PUBLIC_KEY as string,
-      privateKey: process.env.E2E_TEST_PRIVATE_KEY as string,
+      publicKey: process.env.PUBLIC_KEY as string,
+      privateKey: process.env.PRIVATE_KEY as string,
     }
   });
 

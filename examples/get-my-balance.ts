@@ -3,10 +3,10 @@ import '../env';
 
 const main = async () => {
   const client = new Client({
-    baseUrl: process.env.E2E_TEST_URL,
+    baseUrl: process.env.BASE_URL,
     credentials: {
-      publicKey: process.env.E2E_TEST_PUBLIC_KEY as string,
-      privateKey: process.env.E2E_TEST_PRIVATE_KEY as string,
+      publicKey: process.env.PUBLIC_KEY as string,
+      privateKey: process.env.PRIVATE_KEY as string,
     }
   });
 

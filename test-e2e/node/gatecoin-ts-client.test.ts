@@ -5,7 +5,7 @@ jest.setTimeout(30000);
 describe('Client', () => {
   it('should return a list of orders', async () => {
     const client = new Client({
-      baseUrl: process.env.E2E_TEST_URL as string
+      baseUrl: process.env.BASE_URL as string
     });
 
     const response = await client.getOrderBook('BTCEUR');
@@ -15,10 +15,10 @@ describe('Client', () => {
 
   it('should return all my balances', async () => {
     const client = new Client({
-      baseUrl: process.env.E2E_TEST_URL as string,
+      baseUrl: process.env.BASE_URL as string,
       credentials: {
-        publicKey: process.env.E2E_TEST_PUBLIC_KEY as string,
-        privateKey: process.env.E2E_TEST_PRIVATE_KEY as string,
+        publicKey: process.env.PUBLIC_KEY as string,
+        privateKey: process.env.PRIVATE_KEY as string,
       }
     });
 
@@ -29,10 +29,10 @@ describe('Client', () => {
 
   it('should place a limit buy order', async () => {
     const client = new Client({
-      baseUrl: process.env.E2E_TEST_URL as string,
+      baseUrl: process.env.BASE_URL as string,
       credentials: {
-        publicKey: process.env.E2E_TEST_PUBLIC_KEY as string,
-        privateKey: process.env.E2E_TEST_PRIVATE_KEY as string,
+        publicKey: process.env.PUBLIC_KEY as string,
+        privateKey: process.env.PRIVATE_KEY as string,
       }
     });
 
