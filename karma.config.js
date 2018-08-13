@@ -1,4 +1,4 @@
-require('./test-e2e/env');
+require('./env');
 
 module.exports = function(config) {
   config.set({

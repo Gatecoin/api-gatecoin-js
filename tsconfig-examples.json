@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "declaration": false,
+    "declarationDir": null,
+    "outDir": "dist/examples",
+    "module": "commonjs"
+  },
+  "include": [
+    "examples"
+  ]
+}
