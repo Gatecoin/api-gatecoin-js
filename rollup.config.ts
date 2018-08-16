@@ -37,7 +37,7 @@ export default [
   {
     input: `src/browser-client.ts`,
     output: [
-      { file: pkg.browser, name: camelCase(libraryName), format: 'umd', sourcemap: true, exports: 'named'  },
+      { file: pkg.browser, name: camelCase(libraryName), format: 'umd', sourcemap: true, exports: 'named' },
     ],
     plugins: [
       json(),
