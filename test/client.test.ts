@@ -163,6 +163,34 @@ describe('Client', () => {
     expect(await client.getBalance('USD')).toEqual(result);
   });
 
+  it('getTransactions()', async () => {
+    const result: TransactionsResponse = {
+      "transactions": [
+        {
+          "transactionId": 5502382,
+          "transactionTime": "1534512858",
+          "price": 6503.2,
+          "quantity": 0.06,
+          "currencyPair": "BTCUSD",
+          "way": "bid",
+          "askOrderId": "BK11503963840",
+          "bidOrderId": "BK11503963841"
+        }
+      ],
+      "responseStatus": {
+        "message": "OK"
+      }
+    };
+
+    nock('http://api.com')
+      .get('/Public/Transactions/BTCEUR?count=1&transactionId=2')
+      .reply(200, result);
+
+    const client = getCient();
+
+    expect(await client.getTransactions(  'BTCEUR', 1, 2)).toEqual(result);
+  });
+
   it('getTransactionHistory()', async () => {
     const result: TransactionsResponse = {
       "transactions": [

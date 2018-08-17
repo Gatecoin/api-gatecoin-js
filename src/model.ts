@@ -53,7 +53,7 @@ interface Transaction {
   transactionTime: string;
   price: number;
   quantity: number;
-  currencyPair?: number;
+  currencyPair?: string;
   way?: string;
   askOrderId?: string;
   bidOrderId?: string;

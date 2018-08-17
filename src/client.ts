@@ -75,6 +75,21 @@ class Client {
   }
 
   /**
+   * Gets recent transactions for the given currency pair.
+   *
+   * @param {string} pair
+   * @param {number} count
+   * @param {number} transactionId
+   * @returns {Promise<TransactionsResponse>}
+   */
+  async getTransactions(pair: string, count?: number, transactionId?: number) {
+    return this.request<TransactionsResponse>('GET', `/Public/Transactions/${pair}`, {
+      count,
+      transactionId
+    });
+  }
+
+  /**
    * Gets all transactions for the given currency pair.
    *
    * @param {string} pair
