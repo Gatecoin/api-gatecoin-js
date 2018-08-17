@@ -5,7 +5,10 @@
   <title>Title</title>
   <script src="../dist/gatecoin-client.umd.js"></script>
   <script>
-    console.log(gatecoinClient.Client)
+    var client = new gatecoinClient.Client();
+    client.getTickers()
+      .then(console.log)
+      .catch(console.error);
   </script>
 </head>
 <body>
